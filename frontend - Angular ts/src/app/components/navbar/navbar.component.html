@@ -1,0 +1,9 @@
+<div class="nav">
+    <header tabindex="0">
+        <div class="inner" *ngIf="usersService.isUserLoggedIn()">
+            <!-- <a value="Logout" >Logout</a> -->
+            <span class="material-icons" (click)="onLogoutClicked()">exit_to_app</span>
+            <span style="margin-left:20px; font-size: 18px;">hello {{usersService.username}}!</span>
+        </div>
+    </header>
+</div>

@@ -1,0 +1,13 @@
+<div class="container">
+  <mat-icon *ngIf="currentPathName == 'store'" class="button" color="accent" (click)="toggleDrawer()"
+    matBadge={{cartsService.cartItems.length}}>shopping_cart</mat-icon>
+
+  <mat-drawer-container autosize class="drawerContainer">
+    <mat-drawer #drawer class="example-sidenav" mode="side">
+      <div *ngIf="currentPathName == 'store'">
+        <app-side-cart></app-side-cart>
+      </div>
+    </mat-drawer>
+    <router-outlet></router-outlet>
+  </mat-drawer-container>
+</div>

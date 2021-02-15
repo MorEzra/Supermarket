@@ -1,0 +1,40 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>
+            <mat-form-field>
+                <input matInput type="text" [(ngModel)]="newProduct.productName" />
+            </mat-form-field>
+        </mat-card-title>
+        <mat-card-subtitle>
+            <mat-form-field>
+                <mat-label>Choose category</mat-label>
+                <mat-select (selectionChange)="onCategoryChoose($event.value)" required>
+                    <mat-option value={{category.categoryID}} *ngFor="let category of categories">
+                        {{category.categoryName}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+        </mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="inner">
+        <div style="position: relative;">
+            <img src={{newProduct.image}} alt="product" width="100%">
+            <label>
+                <input style="display:none" type="file" accept="image/*" (change)="onAddImageClicked($event)" required>
+                <mat-icon style="position: absolute; left:20px; bottom: 25px;">filter</mat-icon>
+            </label>
+        </div>
+        <span>
+            <mat-form-field>
+                <input matInput type="number" [(ngModel)]="newProduct.price" min="1" required />
+                <span matPrefix>$&nbsp;</span>
+                <span matSuffix>.00</span>
+            </mat-form-field>
+        </span><br>
+
+        <button mat-stroked-button color="accent" (click)="onCreateProductClicked()">Submit
+            new product</button>
+    </mat-card-content>
+</mat-card>

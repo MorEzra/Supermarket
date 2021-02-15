@@ -1,0 +1,76 @@
+<button mat-button (click)="onBackToShopClicked()">&#171; Back to shop</button>
+<div class="container">
+    <div class="cartItems">
+        <app-checkout-cart-items></app-checkout-cart-items>
+    </div>
+
+    <div class="orderDetails">
+        <h2>Order Details</h2>
+        <h3>Shipping details</h3>
+
+        <form [formGroup]="checkoutFormGroup" #checkoutForm="ngForm">
+            <mat-checkbox (change)="onCheckboxChecked()">Use my default address</mat-checkbox>
+            <mat-form-field>
+                <mat-label>Choose a city</mat-label>
+                <mat-select id="city" [formControl]="cityFormControl" name="city"
+                    [(ngModel)]="orderDetails.deliveryCityId" disabled={{isDisableAddressFields}}>
+                    <mat-option value={{city.id}} *ngFor="let city of usersService.cities">
+                        {{city.name}}
+                    </mat-option>
+                </mat-select>
+
+                <mat-error [style.fontSize.px]="12" *ngIf="cityFormControl.touched && cityFormControl.errors?.required">
+                    Please choose a city</mat-error>
+            </mat-form-field>
+
+            <mat-form-field>
+                <input matInput type="text" [formControl]="streetFormControl" name="street" placeholder="Street"
+                    [(ngModel)]="orderDetails.deliveryStreet" />
+
+                <mat-error [style.fontSize.px]="12"
+                    *ngIf="streetFormControl.touched && streetFormControl.errors?.required">
+                    Please fill your street</mat-error>
+                <mat-error [style.fontSize.px]="12"
+                    *ngIf="!streetFormControl.pristine && streetFormControl.errors?.pattern">
+                    Please use only letters and numbers</mat-error>
+                <mat-error [style.fontSize.px]="12"
+                    *ngIf="!streetFormControl.pristine && streetFormControl.errors?.minlength">
+                    Street is too short</mat-error>
+                <mat-error [style.fontSize.px]="12"
+                    *ngIf="!streetFormControl.pristine && streetFormControl.errors?.maxlength">
+                    Street is too long</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="example-full-width">
+                <mat-label>Pick a delivery date</mat-label>
+                <input matInput [matDatepickerFilter]="busyDatesFilter" [matDatepicker]="picker"
+                    [(ngModel)]="orderDetails.deliveryDate" [formControl]="shippingDateFormControl">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker (selectedChange)="onDeliveryDateSelected($event)" #picker></mat-datepicker>
+
+                <mat-error [style.fontSize.px]="12"
+                    *ngIf="shippingDateFormControl.touched && shippingDateFormControl.errors?.required">
+                    Please pick a delivery date</mat-error>
+            </mat-form-field>
+
+            <h3>Payment details</h3>
+            <mat-form-field>
+                <input matInput id="ccn" type="tel" inputmode="numeric" [formControl]="creditCardFormControl"
+                    [(ngModel)]="creditCardNumber" placeholder="Credit card number">
+
+                <mat-error [style.fontSize.px]="12"
+                    *ngIf="creditCardFormControl.touched && creditCardFormControl.errors?.required">
+                    Please enter a credit card number</mat-error>
+                <mat-error [style.fontSize.px]="12"
+                    *ngIf="!creditCardFormControl.pristine && creditCardFormControl.errors?.pattern">
+                    Please enter a valid credit card number</mat-error>
+            </mat-form-field>
+
+            <span class="noteToUser" *ngIf="isShowNoteToUser">{{noteToUser}}</span>
+
+            <button mat-stroked-button color="primary" (click)="onPlaceOrderClicked()"
+                [disabled]="checkoutForm.form.invalid">Order</button>
+        </form>
+
+    </div>
+</div>

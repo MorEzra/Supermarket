@@ -1,0 +1,19 @@
+<div class="container">
+    <div class="nav">
+      <div class="categoryNav">
+        <a class="categoryLink" (click)="onSelectCategoryClicked($event.currentTarget.attributes.id.nodeValue)" id=999>All
+          Products</a>
+
+        <a class="categoryLink" (click)="onSelectCategoryClicked($event.currentTarget.attributes.id.nodeValue)"
+          *ngFor="let category of categories" id={{category.categoryID}}>{{category.categoryName}}</a>
+      </div>
+      <div class="searchNav">
+        <mat-form-field>
+          <input matInput type="text" matInput placeholder="I'm looking for..." [(ngModel)]="searchValue">
+        </mat-form-field>
+        <button mat-stroked-button color="primary" (click)="onSearchButtonClicked()" [disabled]="searchValue.trim() == ''">Search</button>
+      </div>
+    </div>
+
+    <app-products [products]="products" [dialogToShow]="dialogToShow" [categoryName]="selectedCategoryName"></app-products>
+</div>

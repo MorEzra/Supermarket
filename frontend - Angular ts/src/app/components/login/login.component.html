@@ -1,0 +1,37 @@
+<div class="container">
+    <form [formGroup]="loginFormGroup" #loginForm="ngForm" (submit)="login()">
+        <mat-form-field>
+            <input matInput type="email" [formControl]="usernameFormControl" name="username"
+                [(ngModel)]="userLoginDetails.username" placeholder="email@example.com" />
+
+            <mat-error [style.fontSize.px]="12" *ngIf="usernameFormControl.touched && usernameFormControl.errors?.required">
+                Please fill your email address</mat-error>
+            <mat-error [style.fontSize.px]="12" *ngIf="!usernameFormControl.pristine && usernameFormControl.errors?.pattern">
+                Invalid email address</mat-error>
+            <mat-error [style.fontSize.px]="12" *ngIf="usernameFormControl.touched && usernameFormControl.errors?.minlength">
+                Email address is too short</mat-error>
+            <mat-error [style.fontSize.px]="12" *ngIf="!usernameFormControl.pristine && usernameFormControl.errors?.maxlength">
+                Email address is too long</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <input matInput type="password" [formControl]="passwordFormControl" name="password" placeholder="password"
+                [(ngModel)]="userLoginDetails.password" />
+
+            <mat-error [style.fontSize.px]="12" *ngIf="passwordFormControl.touched && passwordFormControl.errors?.required">
+                Please fill your password</mat-error>
+            <mat-error [style.fontSize.px]="12" *ngIf="!passwordFormControl.pristine && passwordFormControl.errors?.pattern">
+                Please use only letters and numbers</mat-error>
+            <mat-error [style.fontSize.px]="12" *ngIf="passwordFormControl.touched && passwordFormControl.errors?.minlength">
+                Password is too short</mat-error>
+            <mat-error [style.fontSize.px]="12" *ngIf="!passwordFormControl.pristine && passwordFormControl.errors?.maxlength">
+                Password is too long</mat-error>
+        </mat-form-field>
+
+        <span class="noteToUser" *ngIf="isShowNoteToUser">{{noteToUser}}</span>
+
+        <button style="margin-top: 20px;" mat-stroked-button color="access" [disabled]="loginForm.form.invalid">Login</button>
+    </form><br>
+
+    <span>Not registered yet? <a routerLink="/home/register">Sign in</a></span>
+</div>

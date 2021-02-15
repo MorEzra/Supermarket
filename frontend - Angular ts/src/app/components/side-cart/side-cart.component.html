@@ -1,0 +1,21 @@
+<table>
+    <span *ngIf="cartItems.length != 0" (click)="onEmptyCartClicked()">
+        <mat-icon>delete</mat-icon>Empty
+    </span><br><br>
+    <h2>Your cart</h2>
+    <tr *ngFor="let item of cartItems">
+        <td style="padding-right: 10px">
+            {{item.quantity}} &#10005; {{item.productName}}
+        </td>
+        <td style="padding-left: 10px">
+            {{item.price}} $
+        </td>
+        <td>
+            <mat-icon (click)="onDeleteCartItemClicked(item)" color="accent">clear</mat-icon>
+        </td>
+    </tr>
+</table>
+
+<hr>
+<p><b>Total cart price: {{cartsService.totalCartPrice}} $</b></p>
+<button mat-stroked-button color="accent" *ngIf="cartItems.length != 0" (click)="onPurchaseClicked()">Purchase</button>

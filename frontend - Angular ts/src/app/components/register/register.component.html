@@ -1,0 +1,173 @@
+<div class="register">
+    <mat-vertical-stepper [linear]="false" #stepper>
+        <mat-step [stepControl]="registerFormGroup">
+            <form [formGroup]="registerFormGroup" #registerForm="ngForm">
+                <ng-template matStepLabel>Fill out your Registration details</ng-template>
+                <mat-form-field>
+                    <input matInput type="number" [formControl]="userIdFormControl" name="ID" placeholder="ID"
+                        [(ngModel)]="userRegisterDetails.userID" />
+
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="userIdFormControl.touched && userIdFormControl.errors?.required">
+                        Please fill your ID number</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="userIdFormControl.touched && userIdFormControl.errors?.pattern">
+                        Please fill a valid ID number</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" [formControl]="usernameFormControl" name="username"
+                        placeholder="email@example.com" [(ngModel)]="userRegisterDetails.username" />
+
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="usernameFormControl.touched && usernameFormControl.errors?.required">
+                        Please fill your email address</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!usernameFormControl.pristine && usernameFormControl.errors?.pattern">
+                        Invalid email address</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="usernameFormControl.touched && usernameFormControl.errors?.minlength">
+                        Email address is too short</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!usernameFormControl.pristine && usernameFormControl.errors?.maxlength">
+                        Email address is too long</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="password" [formControl]="passwordFormControl" name="password"
+                        placeholder="password" [(ngModel)]="userRegisterDetails.password" />
+
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="passwordFormControl.touched && passwordFormControl.errors?.required">
+                        Please fill your password</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!passwordFormControl.pristine && passwordFormControl.errors?.pattern">
+                        Please use only letters and numbers</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="passwordFormControl.touched && passwordFormControl.errors?.minlength">
+                        Password is too short</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!passwordFormControl.pristine && passwordFormControl.errors?.maxlength">
+                        Password is too long</mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput type="password" [formControl]="repeatPasswordFormControl" name="repassword"
+                        placeholder="repeat password" />
+
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="repeatPasswordFormControl.touched && repeatPasswordFormControl.errors?.required">
+                        Please repeat your password</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!repeatPasswordFormControl.pristine && repeatPasswordFormControl.errors?.pattern">
+                        Please use only letters and numbers</mat-error>
+                    <span *ngIf="!repeatPasswordFormControl.pristine && repeatPasswordFormControl.value !== passwordFormControl.value">
+                        <mat-error [style.fontSize.px]="12">Passwords mismatch</mat-error>
+                    </span>
+                </mat-form-field>
+
+                <!-- I set specific validations because I want to block pass to the second step unless the first steps' forms are all valid -->
+                <button style="margin-top: 20px;" mat-stroked-button color="accent" matStepperNext [disabled]="userIdFormControl.errors?.required ||
+                userIdFormControl.errors?.pattern ||
+                usernameFormControl.errors?.pattern ||
+                usernameFormControl.errors?.required ||
+                usernameFormControl.errors?.pattern ||
+                usernameFormControl.errors?.minlength ||
+                usernameFormControl.errors?.maxlength ||
+                passwordFormControl.errors?.pattern ||
+                passwordFormControl.errors?.required ||
+                passwordFormControl.errors?.minlength ||
+                passwordFormControl.errors?.maxlength ||
+                repeatPasswordFormControl.errors?.pattern ||
+                repeatPasswordFormControl.errors?.required ||
+                repeatPasswordFormControl.errors?.minlength ||
+                repeatPasswordFormControl.errors?.maxlength ||
+                repeatPasswordFormControl.value != passwordFormControl.value">Next</button>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="registerFormGroup" label="Fill out your Personal details">
+            <form [formGroup]="registerFormGroup" #registerForm="ngForm">
+                <mat-form-field>
+                    <input matInput type="text" [formControl]="firstNameFormControl" name="firstName"
+                        placeholder="First Name" [(ngModel)]="userRegisterDetails.firstName" />
+
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="firstNameFormControl.touched && firstNameFormControl.errors?.required">
+                        Please fill your first name</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!firstNameFormControl.pristine && firstNameFormControl.errors?.pattern">
+                        Please use only letters</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="firstNameFormControl.touched && firstNameFormControl.errors?.minlength">
+                        First name is too short</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!firstNameFormControl.pristine && firstNameFormControl.errors?.maxlength">
+                        First name is too long</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" [formControl]="surnameFormControl" name="surname" placeholder="Surname"
+                        [(ngModel)]="userRegisterDetails.surname" />
+
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="surnameFormControl.touched && surnameFormControl.errors?.required">
+                        Please fill your surname</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!surnameFormControl.pristine && surnameFormControl.errors?.pattern">
+                        Please use only letters</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="surnameFormControl.touched && surnameFormControl.errors?.minlength">
+                        Surname is too short</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!surnameFormControl.pristine && surnameFormControl.errors?.maxlength">
+                        Surname is too long</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Choose your city</mat-label>
+                    <mat-select id="city" [formControl]="cityFormControl" name="city"
+                        [(ngModel)]="userRegisterDetails.cityID">
+                        <mat-option value={{city.id}} *ngFor="let city of usersService.cities">
+                            {{city.name}}
+                        </mat-option>
+                    </mat-select>
+
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="cityFormControl.touched && cityFormControl.errors?.required">
+                        Please choose your city</mat-error>
+                </mat-form-field>
+                <mat-form-field>
+                    <input matInput type="text" [formControl]="streetFormControl" name="street" placeholder="Street"
+                        [(ngModel)]="userRegisterDetails.street" />
+
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="streetFormControl.touched && streetFormControl.errors?.required">
+                        Please fill your street</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!streetFormControl.pristine && streetFormControl.errors?.pattern">
+                        Please use only letters and numbers</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="streetFormControl.touched && streetFormControl.errors?.minlength">
+                        Street is too short</mat-error>
+                    <mat-error [style.fontSize.px]="12"
+                        *ngIf="!streetFormControl.pristine && streetFormControl.errors?.maxlength">
+                        Street is too long</mat-error>
+                </mat-form-field>
+
+                <button style="margin-top: 20px;" mat-stroked-button color="accent" matStepperPrevious>Back</button>
+
+                <!-- coveres DOM intervention -->
+                <span class="noteToUser" *ngIf="userIdFormControl.errors?.required ||
+                usernameFormControl.errors?.required ||
+                usernameFormControl.errors?.required ||
+                usernameFormControl.errors?.pattern ||
+                passwordFormControl.errors?.required">Please step back and fill all the fields</span><br>
+
+                <button mat-stroked-button color="accent"
+                    [disabled]="registerForm.form.invalid || repeatPasswordFormControl.value != passwordFormControl.value"
+                    (click)="register()">Register</button>
+
+                <span class="noteToUser" *ngIf="isShowNoteToUser">{{noteToUser}}</span>
+            </form>
+        </mat-step>
+    </mat-vertical-stepper>
+
+    <span>Already registered? <a routerLink="/home/login">Log in</a></span>
+</div>

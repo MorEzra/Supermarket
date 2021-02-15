@@ -1,0 +1,20 @@
+<mat-card class="card">
+    <mat-card-header class="cardHeader">
+        <mat-card-title>{{product.productName}}</mat-card-title>
+        <mat-card-subtitle>{{product.categoryName}}</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content class="inner">
+        <img src={{product.image}} alt={{product.productName}} width="100%">
+        <span class="price">{{product.price}}$ per unit</span><br>
+
+        <mat-form-field class="example-full-width">
+            <mat-label>Quantity</mat-label>
+            <input matInput type="number" [(ngModel)]="product.quantity" placeholder="0" min="1" required>
+        </mat-form-field>
+
+        <button mat-stroked-button color="accent" (click)="addProductToCart(product)">Add to Cart
+            <mat-icon>add_shopping_cart</mat-icon>
+        </button>
+    </mat-card-content>
+</mat-card>

@@ -1,0 +1,19 @@
+<div class="breadcrumbs">
+    <span style="color: #B9B9B9">shop &#xBB; products</span>
+    <span style="color: #B9B9B9; margin: 0px 5px;" *ngIf="categoryName != ''"> &#xBB; </span>
+    <span style="color: #4050B5">{{categoryName}}</span>
+</div>
+
+<div class="container">
+    <mat-card class="card" *ngFor="let product of products" (click)="onProductClicked(product)">
+        <mat-card-header class="cardHeader" class="mat-small">
+            <mat-card-title>{{product.productName}}</mat-card-title>
+            <mat-card-subtitle>{{product.categoryName}}</mat-card-subtitle>
+        </mat-card-header>
+
+        <mat-card-content>
+            <img src={{product.image}} alt={{product.name}} width="100%">
+            <span class="price">{{product.price}}$ </span><span> per unit</span>
+        </mat-card-content>
+    </mat-card>
+</div>

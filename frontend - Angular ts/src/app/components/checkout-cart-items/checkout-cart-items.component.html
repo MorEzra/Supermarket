@@ -1,0 +1,17 @@
+<h2>My Cart</h2>
+<mat-form-field>
+    <input matInput type="text" placeholder="Search in receipt..." [(ngModel)]="searchValue" />
+</mat-form-field>
+
+<table>
+    <tr *ngFor="let item of cartItems">
+        <td style="padding-right: 10px">
+            {{item.quantity}} &#10005; <span [innerHTML]="item.productName| highlightSearchText: searchValue"></span>
+        </td>
+        <td style="padding-left: 10px">
+            {{item.price}} $ per unit
+        </td>
+    </tr>
+</table>
+<hr width="65%" align="left">
+<span><b>Total cart price: {{cartsService.totalCartPrice}} $</b></span>

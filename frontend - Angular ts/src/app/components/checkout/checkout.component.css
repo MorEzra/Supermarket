@@ -1,0 +1,76 @@
+.container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 70%;
+    margin: 0 auto;
+}
+
+.highlight {
+    background-color: violet;
+    font-weight: 700;
+}
+
+h2 {
+    color: #4091bf;
+}
+
+.cartItems {
+    width: 40%;
+}
+
+.orderDetails {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+.example-custom-date-class {
+    background: orange;
+    border-radius: 100%;
+}
+
+.noteToUser {
+    color: red;
+    font-size: 14px;
+    line-height: 30px;
+    display: block;
+}
+
+@media screen and (max-width:1200px){
+    .container {
+        padding-top: 2vh;
+        flex-direction: column;
+    }
+
+    .cartItems {
+        width: 90%;
+        margin-bottom: 100px;
+    }
+    
+    .orderDetails {
+        width: 90%;
+    }
+  }
+  
+  @media screen and (max-width:768px){
+    .container {
+      width: 90%;
+      margin: 0 auto;
+      padding-top: 2vh;
+    }
+
+    .cartItems {
+        width: 90%;
+        margin-bottom: 100px;
+    }
+    
+    .orderDetails {
+        width: 90%;
+    }
+  }
